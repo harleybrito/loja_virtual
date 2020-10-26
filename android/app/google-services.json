@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "428938265066",
+    "firebase_url": "https://lojaflutter-e5f23.firebaseio.com",
+    "project_id": "lojaflutter-e5f23",
+    "storage_bucket": "lojaflutter-e5f23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428938265066:android:3775cf57b6e604ba3ab293",
+        "android_client_info": {
+          "package_name": "br.com.harleydebrito.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428938265066-9gh0u4ucc91nfdckf7cvuu7uui9vsk8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYhB3M-rNZ8czxC5ivwjDtnOsqrWg7-6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428938265066-9gh0u4ucc91nfdckf7cvuu7uui9vsk8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
