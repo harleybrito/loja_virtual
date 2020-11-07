@@ -81,7 +81,7 @@ class HomeTab extends StatelessWidget {
   }
 
   Future<QuerySnapshot> _loadHome() async {
-    await Firebase.initializeApp();
+    // await Firebase.initializeApp();
     return FirebaseFirestore.instance.collection("home").orderBy("pos").get();
   }
 }
