@@ -3,12 +3,21 @@ import 'package:loja_virtual/models/user_model.dart';
 import 'package:loja_virtual/screens/signup_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final TextEditingController _emailField = TextEditingController();
+  final TextEditingController _passField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Entrar"),
         centerTitle: true,
@@ -41,6 +50,7 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               children: [
                 TextFormField(
+                  controller: _emailField,
                   decoration: InputDecoration(
                     hintText: "E-mail",
                   ),
@@ -54,6 +64,7 @@ class LoginScreen extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
+                  controller: _passField,
                   decoration: InputDecoration(
                     hintText: "Senha",
                   ),
@@ -66,7 +77,26 @@ class LoginScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_emailField.text.isEmpty) {
+                        _scaffoldKey.currentState.showSnackBar(
+                          SnackBar(
+                            content: Text("Insira seu e-mail!"),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      } else {
+                        model.recoverPass(_emailField.text);
+                        _scaffoldKey.currentState.showSnackBar(
+                          SnackBar(
+                            content: Text("Instruções enviadas!"),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                    },
                     child: Text(
                       "Esqueci minha senha",
                       textAlign: TextAlign.right,
@@ -88,7 +118,12 @@ class LoginScreen extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
                       if (_formKey.currentState.validate()) {}
-                      model.signIn();
+                      model.signIn(
+                        email: _emailField.text,
+                        pass: _passField.text,
+                        onSuccess: onSuccess,
+                        onFail: onFail,
+                      );
                     },
                   ),
                 ),
@@ -97,6 +132,20 @@ class LoginScreen extends StatelessWidget {
           );
         }
       }),
+    );
+  }
+
+  void onSuccess() {
+    Navigator.pop(context);
+  }
+
+  void onFail() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Falha ao entrar!"),
+        backgroundColor: Theme.of(context).primaryColor,
+        duration: Duration(seconds: 2),
+      ),
     );
   }
 }

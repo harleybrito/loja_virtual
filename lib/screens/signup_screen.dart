@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
+  @override
+  _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   final _addressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Criar Conta"),
         centerTitle: true,
@@ -111,6 +118,26 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  void _onSuccess() {}
-  void _onFail() {}
+  void _onSuccess() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Usuário criado com sucesso!"),
+        backgroundColor: Theme.of(context).primaryColor,
+        duration: Duration(seconds: 2),
+      ),
+    );
+    Future.delayed(Duration(seconds: 2)).then((_) {
+      Navigator.of(context).pop();
+    });
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Falha ao criar usuário!"),
+        backgroundColor: Theme.of(context).primaryColor,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 }
